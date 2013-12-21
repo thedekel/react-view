@@ -1,0 +1,18 @@
+{
+  "name": "react-view-test",
+  "version": "0.0.0",
+  "description": "example of how to use react-view with jsx views",
+  "main": "index.js",
+  "dependencies": {
+    "react-view": "git://github.com/thedekel/react-view.git",
+    "amdefine": "*",
+    "react": "*",
+    "express": "3.x"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "thedekel",
+  "license": "BSD-2-Clause"
+}
