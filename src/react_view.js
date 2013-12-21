@@ -1,39 +1,47 @@
 var fs = require('fs'),
+    react = require('react'),
     path = require('path');
 
 var Instance = function() {
-
-  this.react_render = require('./render');
 
   this.cache = {};
   this.__express = middleware.bind(this);
 };
 
+var excludeServerData = function(options) {
+  delete options.serverData;
+  return options;
+};
+
 // express 3.x template engine compliance
 function middleware(filename, options, cb) {
+  if (options.xhr) {
+    return cb(null, JSON.stringify(
+      { 
+        viewfile: '/' + path.relative(options.settings.views, filename),
+        viewdata: excludeServerData(options)
+      }
+    ));
+  }
+
   var cache = this.cache;
-  var react_render = this.react_render;
 
   var extension = path.extname(filename);
 
   function render_file(locals, cb) {
     var template = cache[filename];
     if (template) {
-      return cb(null, template(locals));
+      react.renderComponentToString(template(locals), function(out) {
+        return cb(null, out);
+      });
     }
 
-    fs.readFile(filename, 'utf8', function(err, str) {
-      if (err) {
-        return cb(err);
-      }
-
-      var template = react_render.load(str);
-      if (options.cache) {
-        cache[filename] = template;
-      }
-
-      var res = template(locals);
-      cb(null, res);
+    view = require(filename);
+    if (options.cache) {
+      cache[filename] = view;
+    }
+    react.renderComponentToString(view(locals), function(out) {
+      return cb(null, out);
     });
   }
 
@@ -43,4 +51,13 @@ function middleware(filename, options, cb) {
 module.exports = new Instance();
 module.exports.create = function() {
   return new Instance();
+};
+
+module.exports.configRoutes = function(app) {
+  app.get('/react_view/loader.js', function(req, res) {
+    res.sendfile(path.join(__dirname, '../resources', 'loader.js'));
+  });
+  app.get('/react_view/requester.js', function(req, res) {
+    res.sendfile(path.join(__dirname, '../resources', 'requester.js'));
+  });
 };
