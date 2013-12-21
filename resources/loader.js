@@ -1,8 +1,7 @@
 require.config({
   paths: {
     react: 'http://fb.me/react-0.8.0',
-    JSXTransformer: 'http://fb.me/JSXTransformer-0.8.0',
-    jsx: "/react_view/jsx",
+    JSXTransformer: 'http://fb.me/JSXTransformer-0.8.0'
   },
   shim: {
     JSXTransformer: {

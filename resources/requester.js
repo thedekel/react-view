@@ -7,7 +7,6 @@ define(['react'], function(React) {
         try {
           var jsonRes = JSON.parse(xhr.responseText);
           if (jsonRes.viewfile && jsonRes.viewdata) {
-            console.log(jsonRes);
             return require(['react',jsonRes.viewfile], 
               function(react, Component) { 
                 React.__internals.Mount.allowFullPageRender = true; 
