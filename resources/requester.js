@@ -10,7 +10,7 @@ define(['react'], function(React) {
             return require(['react',jsonRes.viewfile], 
               function(react, Component) { 
                 React.__internals.Mount.allowFullPageRender = true; 
-                React.renderComponent( Component(jsonRes.viewData), document) 
+                React.renderComponent( Component(jsonRes.viewdata), document) 
               }
             );
           }
