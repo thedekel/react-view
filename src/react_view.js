@@ -29,18 +29,21 @@ function middleware(filename, options, cb) {
   var extension = path.extname(filename);
 
   function render_file(locals, cb) {
+    componentProps = (locals.props? locals.props: locals);
     var template = cache[filename];
     if (template) {
-      react.renderComponentToString(template(locals), function(out) {
+      react.renderComponentToString(template(componentProps), function(out) {
         return cb(null, out);
       });
     }
 
     view = require(filename);
-    if (options.cache) {
-      cache[filename] = view;
+    if (!options.cache) {
+      if (require.cache[filename]) {
+        delete require.cache[filename];
+      }
     }
-    react.renderComponentToString(view(locals), function(out) {
+    react.renderComponentToString(view(componentProps), function(out) {
       return cb(null, out);
     });
   }
