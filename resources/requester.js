@@ -34,6 +34,9 @@ define(['react'], function(React) {
     history.pushState({url: pagepath}, '',  pagepath);
     return loadPage(pagepath, "GET", null);
   };
+  exports.restoreHistoryPage = function(event) {
+    return loadPage(event.state.url, "GET", null);
+  };
   exports.submitForm = function(form) {
     var fd = new FormData(form);
     var method = form.method;

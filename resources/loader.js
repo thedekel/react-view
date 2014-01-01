@@ -13,5 +13,6 @@ require.config({
 //initialize the current page
 require(['/react_view/requester.js'], function(requester) {
   requester.loadCurrentPage();
+  window.onpopstate = requester.restoreHistoryPage;
 });
 
