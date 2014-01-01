@@ -1,6 +1,6 @@
 {
   "name": "react-view",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Express 3.x view engine for React Components as views written in jsx",
   "main": "index.js",
   "scripts": {
