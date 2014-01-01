@@ -27,16 +27,18 @@ define(['react'], function(React) {
     xhr.send(formData);
   }
   exports.loadCurrentPage = function() {
+    history.replaceState({url: document.location.pathname}), '' , document.location.pathname);
     return loadPage(document.location.pathname, "GET", null);
   };
   exports.changePage = function(pagepath) {
-    console.log("TODO: replace history state and set-up popstate");
+    history.pushState({url: pagepath}, event.target.textContent, pagepath);
     return loadPage(pagepath, "GET", null);
   };
   exports.submitForm = function(form) {
     var fd = new FormData(form);
     var method = form.method;
     var path = form.action;
+    history.pushState({url: path}, event.target.textContent, path);
     return loadPage(path, method, fd);
   };
   return exports;
