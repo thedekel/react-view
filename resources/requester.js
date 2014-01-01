@@ -31,14 +31,14 @@ define(['react'], function(React) {
     return loadPage(document.location.pathname, "GET", null);
   };
   exports.changePage = function(pagepath) {
-    history.pushState({url: pagepath}, event.target.textContent, pagepath);
+    history.pushState({url: pagepath}, '',  pagepath);
     return loadPage(pagepath, "GET", null);
   };
   exports.submitForm = function(form) {
     var fd = new FormData(form);
     var method = form.method;
     var path = form.action;
-    history.pushState({url: path}, event.target.textContent, path);
+    history.pushState({url: path}, '', path);
     return loadPage(path, method, fd);
   };
   return exports;
