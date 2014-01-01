@@ -27,7 +27,7 @@ define(['react'], function(React) {
     xhr.send(formData);
   }
   exports.loadCurrentPage = function() {
-    history.replaceState({url: document.location.pathname}), '' , document.location.pathname);
+    history.replaceState({url: document.location.pathname}, '' , document.location.pathname);
     return loadPage(document.location.pathname, "GET", null);
   };
   exports.changePage = function(pagepath) {
