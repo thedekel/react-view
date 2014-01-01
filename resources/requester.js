@@ -9,6 +9,8 @@ define(['react'], function(React) {
           if (jsonRes.viewfile && jsonRes.viewdata) {
             return require(['react',jsonRes.viewfile], 
               function(react, Component) { 
+                //finalize the history state to the most current url
+                history.replaceState({url: document.location.pathname}, '' , document.location.pathname);
                 React.__internals.Mount.allowFullPageRender = true; 
                 React.renderComponent( Component(jsonRes.viewdata), document) 
               }
