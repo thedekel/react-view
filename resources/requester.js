@@ -1,6 +1,6 @@
 define(['react'], function(React) {
   var exports = {};
-  exports.loadPage = function(path) {
+  var loadPage = function(path, method, formData) {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
       if (xhr.readyState === 4 && xhr.status === 200) {
@@ -22,16 +22,22 @@ define(['react'], function(React) {
 
       }
     };
-    xhr.open("GET", path, true);
+    xhr.open(method, path, true);
     xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
-    xhr.send();
+    xhr.send(formData);
   }
   exports.loadCurrentPage = function() {
-    return exports.loadPage(document.location.pathname);
+    return loadPage(document.location.pathname, "GET", null);
   };
   exports.changePage = function(pagepath) {
     console.log("TODO: replace history state and set-up popstate");
-    return exports.loadPage(pagepath);
+    return loadPage(pagepath, "GET", null);
+  };
+  exports.submitForm = function(form) {
+    var fd = new FormData(form);
+    var method = form.method;
+    var path = form.action;
+    return loadPage(path, method, fd);
   };
   return exports;
 });
