@@ -10,6 +10,9 @@ var Instance = function() {
 
 var excludeServerData = function(options) {
   delete options.serverData;
+  if (options.props) {
+    return options.props;
+  }
   return options;
 };
 
